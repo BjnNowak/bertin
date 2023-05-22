@@ -75,8 +75,8 @@ ggplot(regions_valued,aes(size=density))+
     inherit.aes=FALSE
   )+
   geom_sf()+
-  coord_sf(crs='EPSG:2154')+
-  scale_size(range=c(1,3))
+  scale_size(range=c(1,3))+
+  coord_sf(crs='EPSG:2154')
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
@@ -118,6 +118,7 @@ ggplot(departments_valued,aes(size=as.factor(density_cl)))+
     values=seq(0.5,3,0.5),
     labels=c("<40","<80","<120","<160","≥160"))+
   labs(size="Population density")+
+  coord_sf(crs='EPSG:2154')+
   theme_void()
 ```
 
