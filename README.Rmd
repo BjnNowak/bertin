@@ -1,0 +1,46 @@
+---
+title: "how-to-use-this-package"
+output: github_document
+vignette: >
+  %\VignetteIndexEntry{how-to-use-this-package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, include=FALSE}
+# The package may be installed from github using the following command (to use only once):
+# devtools::install_github("BjnNowak/bertin")
+
+# Once installed, you may load it into your R session
+library(bertin)
+
+# Two other packages will be useful to process the data: {tidyverse} and {sf}
+library(tidyverse)
+library(sf)
+
+```
+
+Several datasets are already included in the package and may be used directly. 
+
+We will start with the population density of the French regions.
+
+```{r}
+
+head(france_regions)
+
+```
+
+
+```{r}
+
+ggplot(france_regions, aes(fill=density))+
+  geom_sf()
+
+```
