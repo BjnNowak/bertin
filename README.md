@@ -108,7 +108,7 @@ departments_valued<-make_points(
 ggplot(departments_valued,aes(size=as.factor(density_cl)))+
   # French departments as background
   geom_sf(
-    departments_valued,
+    france_departments,
     mapping=aes(geometry=geometry),
     fill="grey95",color="grey60",
     inherit.aes=FALSE
