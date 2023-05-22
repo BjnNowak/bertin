@@ -13,3 +13,4 @@ Suggests:
     knitr
 VignetteBuilder: knitr
 Imports: tidyverse, sf
+LazyData: true
