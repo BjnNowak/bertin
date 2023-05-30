@@ -23,7 +23,7 @@ library(tidyverse)
 library(sf)
 ```
 
-# 2. First example
+# 2. Converting polygons vector files to points vector files
 
 Several datasets are already included in the package and may be used
 directly.
@@ -81,8 +81,6 @@ ggplot(regions_valued,aes(size=density))+
 
 ![](README_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
-# 3. Second example
-
 In the previous example, the high population density of the Paris region
 overwhelms the differences between the other regions. In addition, the
 spatial scale is coarser than that of the original map by Jacques
@@ -126,3 +124,58 @@ ggplot(departments_valued,aes(size=as.factor(density_cl)))+
 
 Besides these examples for France, the make_points() function can be
 applied to any sf polygon object, with a valid crs.
+
+# 3. Converting raster files to points vector files
+
+In addition to Jacques Bertin’s original application (transforming
+polygon vectors into points), the package also lets you do the same
+thing with rasters.
+
+To illustrate this, we can load the raster representing the state of
+vegetation in France for the summer of 2021.
+
+This raster can be loaded by copying/pasting the URL in the R code
+below, or by downloading it at the [following
+link](https://github.com/BjnNowak/TidyTuesday/raw/main/map/ndvi/france/median_NDVI_France_Ju_to_Se_2020.tif).
+
+``` r
+library(terra) # library to work with rasters
+
+# Load raster based on URL
+rst<-rast('https://github.com/BjnNowak/TidyTuesday/raw/main/map/ndvi/france/median_NDVI_France_Ju_to_Se_2020.tif')
+
+# Plot raster
+ggplot()+
+  tidyterra::geom_spatraster(
+    data=rst%>%filter(NDVI>0),
+    aes(fill = NDVI),
+    na.rm=TRUE,mask=TRUE,
+    maxcell = 50e+05
+  )
+```
+
+![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+The raster can now be converted into points using the
+**make_points_rst()** function in the {bertin} package.
+
+The input raster must be a {terra} object, the output vector is a {sf}
+object.
+
+``` r
+vec_agg<-make_points_rst(
+  rst=rst, # raster file (as terra object)
+  n=40 # number of points per side
+)
+
+# Make plot
+ggplot()+
+  geom_sf(
+    france_departments,mapping=aes(geometry=geometry),
+    color=alpha("white",0),fill="grey90")+
+  geom_sf(vec_agg,mapping=aes(size=NDVI,geometry=geometry))+
+  scale_size_binned(range=c(0.1,3.5),limits=c(0.3,0.9))+
+  theme_void()
+```
+
+![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
