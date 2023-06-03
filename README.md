@@ -179,3 +179,17 @@ ggplot()+
 ```
 
 ![](README_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
+# Examples of plots made with {bertin}
+
+**Using make_points()** *Farm animals density in France based on
+departemental statistics from Agreste (a tribute to the original human
+population density map from Bertin)*
+![](https://github.com/BjnNowak/gis/blob/main/fig/gis/map/farm%20animals.png?raw=true)
+Link to
+[code](https://github.com/BjnNowak/TidyTuesday/blob/main/SC_farm_animals.R)
+<br><br> **Using make_points_rst()** *Evolution of vegetation cover in
+Europe from MODIS Normalized Difference Vegetation Index (NDVI) rasters*
+![](https://github.com/BjnNowak/gis/blob/main/fig/gis/map/ndvi_europe_cropped.gif?raw=true)
+Link to
+[code](https://github.com/BjnNowak/TidyTuesday/blob/main/SC_GreenCountry_Europe.R)
